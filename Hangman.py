@@ -10,7 +10,7 @@ For every 4 letters in the word, you must reveal one letter.
 ''')
 word_to_guess = input("Enter the word to be guessed by all: ").lower()
 if len(word_to_guess) < 5:
-    print("You were supposed to input a word of length more than 5.0")
+    print("You were supposed to input a word of length more than 5.")
 else:
     letters = [i for i in word_to_guess if i.isalnum()]
     number_of_reveals = len(letters)//4
@@ -22,17 +22,17 @@ else:
     for i in word_to_guess:
         if i not in list_of_revealers:
             if not i.isspace():
-                hidden_word += "_ "
+                hidden_word += "_"
             else:
                 hidden_word += " "
         else:
-            hidden_word += f"{i} "
-    clear_shell()
+            hidden_word += f"{i}"
+    hidden_word = " ".join(hidden_word)
     print("Start guessing the word now.")
     print(hidden_word)
     wrong_turns = 0
     while wrong_turns < 6:
-        user_guess = input("Enter a letter for the guess: ")
+        user_guess = input("Enter a letter for the guess: ").lower()
         if user_guess not in word_to_guess:
             wrong_turns += 1
             print(f"Letter not found in word. You have {6-wrong_turns} chances left. \n")
@@ -52,13 +52,15 @@ else:
                         new_hidden_word += word_to_guess[ind]
                     else:
                         if not word_to_guess[ind].isspace():
-                            new_hidden_word += "_ " 
+                            new_hidden_word += "_"
                         else:
                             new_hidden_word += " "
                 else:
                     new_hidden_word += f"{word_to_guess[ind]}"
-            hidden_word = new_hidden_word
+            hidden_word = " ".join(new_hidden_word)
             print(hidden_word)
-        if hidden_word == word_to_guess:
+        if "_" not in hidden_word:
             print("You won. Congratulations.")
             break
+    else:
+        print("The word was", word_to_guess)
